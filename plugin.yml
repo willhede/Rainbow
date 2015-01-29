@@ -1,0 +1,14 @@
+name: Rainbow
+main: com.whede1601.Rainbow.Rainbow
+version: 3.2
+author: whede1601
+commands:
+  jemote:
+  name:
+  e:
+  kit:
+  ride:
+  throw:
+  diw:
+  cron:
+  jot:
