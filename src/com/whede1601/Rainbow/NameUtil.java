@@ -8,6 +8,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -17,7 +18,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class NameUtil {
+public abstract class NameUtil implements Comparable{
 	  public static long ServerStartTime = 0L;
 	  public static Namedatabase Data = new Namedatabase();
 	  public static Namedatabase DataBackup = new Namedatabase();
@@ -53,12 +54,6 @@ public class NameUtil {
 	      ObjectOutputStream s = new ObjectOutputStream(new BufferedOutputStream(f));
 	      s.writeObject(DataNew);
 	      s.close();
-
-	      long msEnd = System.currentTimeMillis();
-
-	      @SuppressWarnings("unused")
-		String msg = ChatColor.YELLOW + String.format("%-20s: %5d players.     Took %3d ms", new Object[] { "Online DB Save", Integer.valueOf(Data.pdata.size()), Long.valueOf(msEnd - msStart) });
-	      System.out.println("omg you actualy saved");
 	    }
 	    catch (Throwable exc)
 	    {
@@ -148,15 +143,29 @@ public class NameUtil {
 	    sender.sendMessage(ChatColor.GREEN + RainbowUtil.TextLabel("Total Online Time: ", labelLen) + ChatColor.GOLD + RainbowUtil.TimeDeltaString(msTotal));
 	  }
 
-	  public static void ShowTopPage(CommandSender sender, int page)
+	public static void ShowTopPage(CommandSender sender, int page)
 	  {
 	    int recordsPerPage = 8;
 	    int idxStart = 0 + recordsPerPage * (page - 1);
 	    int idxEnd = idxStart + recordsPerPage;
-
 	    ArrayList names = new ArrayList(DataNew.pdata.keySet());
-	    Collections.sort(names);
-	    System.out.println(names);
+	   System.out.println(names);
+	    Collections.sort(names, new Comparator()
+	    {
+	      public int compare(String name1, String name2) {
+	        long total1 = NameUtil.GetTotalOnlineTime((NameEntry)NameUtil.DataNew.pdata.get(name1));
+	        long total2 = NameUtil.GetTotalOnlineTime((NameEntry)NameUtil.DataNew.pdata.get(name2));
+	        if (total1 > total2) return -1;
+	        if (total1 < total2) return 1;
+	        return 0;
+	      }
+
+		@Override
+		public int compare(Object name1, Object name2) {
+			return 0;
+		}
+	    });
+
 	    String strPage = "page " + page;
 	    if (idxEnd >= names.size())
 	    {
@@ -183,13 +192,18 @@ public class NameUtil {
 	      sender.sendMessage(line);
 	    }
 	  }
-	public static void CheckOnline()
+
+	public static void IntrumSave() 
 	{
-		Player[] players = Bukkit.getServer().getOnlinePlayers();
-		for (String key : DataNew.pdata.keySet())
+		Player[] players = Bukkit.getOnlinePlayers();
+		for (Player p : players)
 		{
-			NameEntry entry = DataNew.pdata.get(key);
+			String plr = p.getName();
+		    NameEntry entry = DataNew.pdata.get(plr);
+		    long msNowOnline = System.currentTimeMillis() - entry.msLastLogin;
+		    entry.msTotal += msNowOnline;
 		}
+		SaveData();	
 	}
 	@Deprecated
 	public static void LoadDataOld()

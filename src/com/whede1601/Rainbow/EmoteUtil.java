@@ -25,6 +25,7 @@ public class EmoteUtil {
 	
       public static _emotes emotes = new _emotes();
 	  public static SimpleDateFormat shortDateFormat = new SimpleDateFormat("MM/dd/yyyy");
+	  public static ConcurrentHashMap<String, Long> timeLastUsed = new ConcurrentHashMap();
 //	  private static String OldFilename = "Emotes.dat.vSnapshot";
 //	  private static  String Filename = "Emotes.dat";
 //	  private static  String Directory = "plugin" + File.separator + "Rainbow" + File.separator + Filename;
@@ -109,13 +110,14 @@ public class EmoteUtil {
 
 	public static void HandleEmote(Player player, String args[]) {
 		String emote = args[0].toLowerCase();
+		long time = System.currentTimeMillis();
 		if (!emotes.emotes.containsKey(emote)) {
 			player.sendMessage("Emote does not exist");
 			return;
 		}
 		CanDoEmote(player, emote);
 	    _EmoteEntry entry = (_EmoteEntry)emotes.emotes.get(emote);
-	    
+	    if ((timeCanUseEmote(player, time)) != true) return;
 	    if (args.length > 1)
 	    {	
 	    	String tgtName = args[1];
@@ -126,11 +128,30 @@ public class EmoteUtil {
 	    	}
 	        String trailer = String.format((String)entry.msg.get("other"), new Object[] { pTgt.getName() });
 	        Bukkit.broadcastMessage(ChatColor.GREEN + player.getName() + " " + trailer);
+	        timeLastUsed.put(player.getName(), System.currentTimeMillis());
+	        System.out.println(System.currentTimeMillis());
 	        return;
 	    }
 	   Bukkit.broadcastMessage(ChatColor.GREEN + player.getName() + " " + (String)entry.msg.get("default"));
+	   timeLastUsed.put(player.getName(), System.currentTimeMillis());
 	}
 
+	public static boolean timeCanUseEmote(Player player, Long CurrentTime)
+	{
+		String p = player.getName();
+		if (!(timeLastUsed.containsKey(p))) return true;
+		long LastUsed = timeLastUsed.get(p);
+		long NextUse = LastUsed + 5000;
+		long TimeLeft = NextUse - CurrentTime;
+        if (TimeLeft < 0L) TimeLeft = 0L;
+		if (TimeLeft != 0)
+		{
+			String strLeft = RainbowUtil.TimeDeltaString_JustMinutesSecs(TimeLeft);
+			player.sendMessage(ChatColor.RED + "Can use emotes again in " + RainbowUtil.TextLabel(strLeft, 0));
+			return false;
+		}
+		return true;		
+	}
 	public static String GetCommaList(CommandSender sender) {
 		String strEmotes = GetCommaList();
 	    sender.sendMessage(ChatColor.GREEN + "All Emotes: " + ChatColor.YELLOW + strEmotes);

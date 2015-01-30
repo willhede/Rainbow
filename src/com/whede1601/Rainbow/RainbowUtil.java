@@ -220,4 +220,47 @@ public class RainbowUtil {
 		    return String.format("%02d:%02dpm EST", new Object[] { Integer.valueOf(hr == 0 ? 12 : hr), Integer.valueOf(min) });
 		  }
 
+		  static long GetMSFromString(String strTime)
+		  {
+		    try
+		    {
+		      long ms = 0L;
+		      long multi = 1L;
+		      if (strTime.endsWith("ms"))
+		      {
+		        strTime = strTime.substring(0, strTime.length() - 2);
+		        multi = 1L;
+		      }
+		      else if (strTime.endsWith("s"))
+		      {
+		        strTime = strTime.substring(0, strTime.length() - 1);
+		        multi = 1000L;
+		      }
+		      else if (strTime.endsWith("m"))
+		      {
+		        strTime = strTime.substring(0, strTime.length() - 1);
+		        multi = 60000L;
+		      }
+		      else if (strTime.endsWith("h"))
+		      {
+		        strTime = strTime.substring(0, strTime.length() - 1);
+		        multi = 3600000L;
+		      }
+		      else if (strTime.endsWith("d"))
+		      {
+		        strTime = strTime.substring(0, strTime.length() - 1);
+		        multi = 86400000L;
+		      }
+		      else
+		      {
+		        multi = 1000L;
+		      }
+		      return multi * Long.parseLong(strTime);
+		    }
+		    catch (Exception localException)
+		    {
+		    }
+
+		    return 0L;
+		  }
 }

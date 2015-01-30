@@ -58,7 +58,7 @@ public class cron implements CommandExecutor{
 	      String strTime = args[2].trim();
 	      String strCmd = RainbowUtil.ConcatArgs(args, 3).trim();
 
-	      ms = GetMSFromString(strTime);
+	      ms = RainbowUtil.GetMSFromString(strTime);
 
 	      if ((ms <= 0L) || (strCmd.length() <= 0))
 	      {
@@ -139,7 +139,7 @@ public class cron implements CommandExecutor{
 	      String jobName = args[1].trim();
 	      String strTime = args[2].trim();
 
-	      long mss = GetMSFromString(strTime);
+	      long mss = RainbowUtil.GetMSFromString(strTime);
 
 	      if (mss <= 0L)
 	      {
@@ -225,7 +225,6 @@ public class cron implements CommandExecutor{
 	      File file = new File("plugins" + File.separatorChar + "Rainbow", "Cron.dat");
 	      FileOutputStream f = new FileOutputStream(file);
 	      ObjectOutputStream s = new ObjectOutputStream(new BufferedOutputStream(f));
-	      System.out.println("Saving");
 	      s.writeObject(mapData);
 	      s.close();
 	    }
@@ -235,49 +234,6 @@ public class cron implements CommandExecutor{
 	      System.out.println("SaveEmotes: " + exc.toString());
 	      System.out.println("**********************************************");
 	    }
-	  }
-	  static long GetMSFromString(String strTime)
-	  {
-	    try
-	    {
-	      long ms = 0L;
-	      long multi = 1L;
-	      if (strTime.endsWith("ms"))
-	      {
-	        strTime = strTime.substring(0, strTime.length() - 2);
-	        multi = 1L;
-	      }
-	      else if (strTime.endsWith("s"))
-	      {
-	        strTime = strTime.substring(0, strTime.length() - 1);
-	        multi = 1000L;
-	      }
-	      else if (strTime.endsWith("m"))
-	      {
-	        strTime = strTime.substring(0, strTime.length() - 1);
-	        multi = 60000L;
-	      }
-	      else if (strTime.endsWith("h"))
-	      {
-	        strTime = strTime.substring(0, strTime.length() - 1);
-	        multi = 3600000L;
-	      }
-	      else if (strTime.endsWith("d"))
-	      {
-	        strTime = strTime.substring(0, strTime.length() - 1);
-	        multi = 86400000L;
-	      }
-	      else
-	      {
-	        multi = 1000L;
-	      }
-	      return multi * Long.parseLong(strTime);
-	    }
-	    catch (Exception localException)
-	    {
-	    }
-
-	    return 0L;
 	  }
 
 	  public static void Run500ms() {

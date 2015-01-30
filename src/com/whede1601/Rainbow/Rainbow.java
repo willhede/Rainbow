@@ -61,7 +61,6 @@ public class Rainbow extends JavaPlugin
 		EmoteUtil.SaveEmotes();
 		cron.SaveCron();
 		KitMgr.SaveKits();
-		NameUtil.CheckOnline();
 	}
 
 	public void VersionCheck() {

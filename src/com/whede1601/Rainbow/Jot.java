@@ -28,6 +28,25 @@ public class Jot implements CommandExecutor {
 	      NameUtil.ShowTopPage(sender, page);
 	      return true;
 	    }
+	    if ((args.length == 2) && (args[0].equalsIgnoreCase("util"))) {
+	    	if (args[1].equalsIgnoreCase("Cron"))
+	    	{
+	  	      _CronData data = (_CronData)cron.mapData.get("jotsave");
+		      if (data == null) data = new _CronData();
+		      data.jobName = "jotsave";
+		      data.cmdToRun = "jot util save";
+		      data.msDelay = (long) 120000;
+		      data.msLastRun = System.currentTimeMillis();
+		      cron.mapData.put("jotsave", data);
+		      cron.SaveCron();
+	    	}
+	    	if (args[1].equalsIgnoreCase("save"))
+	    	{
+	    		NameUtil.IntrumSave();
+	    	}
+	    	
+	    }
+	    
 	    if (args.length == 1)
 	    {
 	      NameUtil.ShowPlayerLoginTime(sender, args[0]);
