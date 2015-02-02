@@ -51,7 +51,7 @@ public class name implements CommandExecutor {
             		continue;
                player.sendMessage(ChatColor.YELLOW + "Stopping Output at " + hits + " matches.");
             }
-            int nplayers = NameUtil.Data.pdata.keySet().size();
+            int nplayers = NameUtil.DataNew.pdata.keySet().size();
             String msg = String.format(ChatColor.AQUA + "Searched %d players. Found %d matches.", new Object[] { Integer.valueOf(nplayers), Integer.valueOf(hits) });
             player.sendMessage(msg);
             player.sendMessage("----------------------------------------------");

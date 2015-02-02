@@ -123,7 +123,7 @@ public class RainbowUtil {
 		        } else if (ch == '1') { res.append(ChatColor.DARK_BLUE);
 		        } else if (ch == '2') { res.append(ChatColor.DARK_GREEN);
 		        } else if (ch == '3') { res.append(ChatColor.DARK_AQUA);
-		        } else if ((ch == '4') && (IsOp)) { res.append(ChatColor.DARK_RED);
+		        } else if (ch == '4') { res.append(ChatColor.DARK_RED);
 		        } else if (ch == '5') { res.append(ChatColor.DARK_PURPLE);
 		        } else if (ch == '6') { res.append(ChatColor.GOLD);
 		        } else if (ch == '7') { res.append(ChatColor.GRAY);
@@ -131,7 +131,7 @@ public class RainbowUtil {
 		        } else if (ch == '9') { res.append(ChatColor.BLUE);
 		        } else if (ch == 'a') { res.append(ChatColor.GREEN);
 		        } else if (ch == 'b') { res.append(ChatColor.AQUA);
-		        } else if ((ch == 'c') && (IsOp)) { res.append(ChatColor.RED);
+		        } else if (ch == 'c') { res.append(ChatColor.RED);
 		        } else if (ch == 'd') { res.append(ChatColor.LIGHT_PURPLE);
 		        } else if (ch == 'e') { res.append(ChatColor.YELLOW);
 		        } else if (ch == 'f') { res.append(ChatColor.WHITE);

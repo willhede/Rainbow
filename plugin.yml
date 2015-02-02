@@ -1,6 +1,6 @@
 name: Rainbow
 main: com.whede1601.Rainbow.Rainbow
-version: 3.2
+version: 3.5
 author: whede1601
 commands:
   jemote:
@@ -12,3 +12,5 @@ commands:
   diw:
   cron:
   jot:
+  NameColor:
+  color:

@@ -9,6 +9,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
 @SuppressWarnings("unused")
@@ -41,6 +42,15 @@ public class jemote implements CommandExecutor {
 	        EmoteUtil.ShowEmoteDetails(sender, emote);
 	        return true;
 	    }
+  	  if ((args.length == 1) && (args[0].equalsIgnoreCase("defaults") ))
+  	  {
+  		  if (sender instanceof ConsoleCommandSender)
+  		  {
+  	  		  EmoteUtil.addDefaultEmotes();
+  	  		  return true;  
+  		  }
+  		  return false;
+  	  }
 	    if (sender.hasPermission("rainbow.jemote.edit"))
 	    {
 	          if ((args.length == 2) && (args[0].equalsIgnoreCase("delete")))
@@ -96,7 +106,6 @@ public class jemote implements CommandExecutor {
 	        entry.msg.put(tgt, msg);
 	        emotes.put(emote, entry);
 	        EmoteUtil.SaveEmotes();
-	        System.out.println(emote);
 	        EmoteUtil.ShowEmoteDetails(sender, emote);
 	        sender.sendMessage(ChatColor.GREEN + "Set " + ChatColor.YELLOW + emote + ChatColor.AQUA + " " + tgt + ChatColor.GREEN + ": " + msg);
 	        return true;

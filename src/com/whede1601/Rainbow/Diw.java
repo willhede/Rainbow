@@ -6,6 +6,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.command.Command;
@@ -41,7 +42,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 	      return false;
 	    }
 		Player p = (Player)sender;
-		if (!(p.hasPermission("rainbow.diw.*")))
+		if (!(p.hasPermission("rainbow.diw.*")) || !(p.hasPermission("rainbow.keepinv")))
 		{
 			p.sendMessage(ChatColor.RED + "Not enough permission.");
 			return false;

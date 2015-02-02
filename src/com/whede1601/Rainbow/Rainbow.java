@@ -23,16 +23,27 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
+
+import com.earth2me.essentials.Essentials;
 
 @SuppressWarnings("unused")
 public class Rainbow extends JavaPlugin
 	implements Listener{
 	
 	public static Rainbow plugin;
+	public static Essentials ess;
 	public void onEnable()
 	{
+		PluginManager pluginManager = Bukkit.getServer().getPluginManager();
+		Plugin EssPlugin = pluginManager.getPlugin("Essentials");
+		if (EssPlugin != null && EssPlugin.isEnabled())
+		{
+			ess = (Essentials)EssPlugin;
+			System.out.println("essentials is enabled");
+		}
 	    File data = getDataFolder();
 	    Bukkit.getServer().getPluginManager().registerEvents(this, this);
 	    this.saveDefaultConfig();
@@ -50,6 +61,8 @@ public class Rainbow extends JavaPlugin
 		this.getCommand("throw").setExecutor(new Throw(plugin));
 		this.getCommand("cron").setExecutor(new cron(plugin));
 		this.getCommand("Jot").setExecutor(new Jot(plugin));
+		this.getCommand("namecolor").setExecutor(new NameColor(plugin));
+		this.getCommand("color").setExecutor(new Color(plugin));
 		VersionCheck();
 		this.getServer().getPluginManager().registerEvents(new listener(this), (this));
 //		this.getCommand("kit").setExecutor(new KitCmd(plugin));
