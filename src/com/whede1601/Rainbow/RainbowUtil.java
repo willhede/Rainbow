@@ -135,11 +135,11 @@ public class RainbowUtil {
 		        } else if (ch == 'd') { res.append(ChatColor.LIGHT_PURPLE);
 		        } else if (ch == 'e') { res.append(ChatColor.YELLOW);
 		        } else if (ch == 'f') { res.append(ChatColor.WHITE);
-		        } else if (ch == 'l') { res.append(ChatColor.BOLD);
-		        } else if (ch == 'm') { res.append(ChatColor.STRIKETHROUGH);
+		        } else if ((ch == 'l') && (IsOp)) { res.append(ChatColor.BOLD);
+		        } else if ((ch == 'm') && (IsOp)){ res.append(ChatColor.STRIKETHROUGH);
 		        } else if ((ch == 'k') && (IsOp)) { res.append(ChatColor.MAGIC);
 		        } else if ((ch == 'n') && (IsOp)) { res.append(ChatColor.UNDERLINE);
-		        } else if (ch == 'o') { res.append(ChatColor.ITALIC);
+		        } else if ((ch == 'o') && (IsOp)) { res.append(ChatColor.ITALIC);
 		        } else if (ch == 'r') { res.append(ChatColor.RESET); } else {
 		          if (ch != '&') continue; res.append("&");
 		        }

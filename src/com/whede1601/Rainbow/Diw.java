@@ -42,17 +42,12 @@ import org.bukkit.inventory.meta.ItemMeta;
 	      return false;
 	    }
 		Player p = (Player)sender;
-		if (!(p.hasPermission("rainbow.diw.*")) || !(p.hasPermission("rainbow.keepinv")))
-		{
-			p.sendMessage(ChatColor.RED + "Not enough permission.");
-			return false;
-		}
 		if (args.length ==0 )
 		{
 			p.sendMessage("error: Not enough");
 			return false;
 		}
-	    if (args[0].equalsIgnoreCase("deathtoggle") && (p != null))
+	    if (args[0].equalsIgnoreCase("deathtoggle") && (p != null) && p.hasPermission("rainbow.keepinv"))
 	    {   
 	      Boolean res = (Boolean)deathallow.get(p.getName());
 	      if (res == null) res = Boolean.valueOf(true);
@@ -68,13 +63,13 @@ import org.bukkit.inventory.meta.ItemMeta;
 	      }
 	      return false;
 	    }
-		if (args[0].equalsIgnoreCase("ThePurge") && (p != null))
+		if (args[0].equalsIgnoreCase("ThePurge") && (p != null) && p.hasPermission("rainbow.diw"))
 		{
 			System.out.println("the purge enabled");
 			p.sendMessage("The purge enabled");
 			ThePurge.Scoreboard();
 		}
-	    if ((args[0].equalsIgnoreCase("addlore")) && (p != null))
+	    if ((args[0].equalsIgnoreCase("addlore")) && (p != null) && p.hasPermission("rainbow.diw"))
 	    {
 		      ItemStack is = p.getItemInHand();
 		      if ((is == null))
@@ -97,7 +92,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 	      p.sendMessage(ChatColor.GREEN + "Lore Added: " + ChatColor.LIGHT_PURPLE + newLore);
 	      return true;
 	    }
-	    if ((args[0].equalsIgnoreCase("clearname")) && (p != null))
+	    if ((args[0].equalsIgnoreCase("clearname")) && (p != null) && p.hasPermission("rainbow.diw"))
 	    {
 	      ItemStack is = p.getItemInHand();
 	      if ((is == null))
@@ -111,7 +106,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 	      p.sendMessage(ChatColor.GREEN + "Item name reset.");
 	      return true;
 	    }
-	    if ((args[0].equalsIgnoreCase("clearlore")) && (p != null))
+	    if ((args[0].equalsIgnoreCase("clearlore")) && (p != null) && p.hasPermission("rainbow.diw"))
 	    {
 	      ItemStack is = p.getItemInHand();
 	      if ((is == null))
@@ -126,7 +121,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 	      p.sendMessage(ChatColor.GREEN + "Lore Cleared!");
 	      return true;
 	    }
-	    if ((args[0].equalsIgnoreCase("addname")) && (p != null))
+	    if ((args[0].equalsIgnoreCase("addname")) && (p != null) && p.hasPermission("rainbow.diw"))
 	    {
 	      if (args.length == 1)
 	      {
@@ -148,7 +143,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 	      p.sendMessage(ChatColor.GREEN + "Name Added: " + ChatColor.LIGHT_PURPLE + colorName);
 	      return true;
 	    }
-	    if ((args[0].equalsIgnoreCase("xptrain")) && (p != null))
+	    if ((args[0].equalsIgnoreCase("xptrain")) && (p != null) && p.hasPermission("rainbow.diw"))
 	    {
 	    	if (args[1].isEmpty())
 	    	{
@@ -163,7 +158,9 @@ import org.bukkit.inventory.meta.ItemMeta;
 	    		int levels = player.getLevel();
 	    		player.setLevel(levels + givenlevels);
 	    	}
+	    	return true;
 	    }
+	    sender.sendMessage(ChatColor.RED + "Not enough permissions.");
 		return false;
 	}
 	public static boolean checkKeepInv(Player player) {

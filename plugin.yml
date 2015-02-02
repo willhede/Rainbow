@@ -1,6 +1,6 @@
 name: Rainbow
 main: com.whede1601.Rainbow.Rainbow
-version: 3.6
+version: 3.7
 author: whede1601
 commands:
   jemote:
