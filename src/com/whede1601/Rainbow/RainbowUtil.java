@@ -119,7 +119,7 @@ public class RainbowUtil {
 		      }
 		      else if (pending) {
 		        pending = false;
-		        if ((ch == '0') && (IsOp)) { res.append(ChatColor.BLACK);
+		        if (ch == '0') { res.append(ChatColor.BLACK);
 		        } else if (ch == '1') { res.append(ChatColor.DARK_BLUE);
 		        } else if (ch == '2') { res.append(ChatColor.DARK_GREEN);
 		        } else if (ch == '3') { res.append(ChatColor.DARK_AQUA);
