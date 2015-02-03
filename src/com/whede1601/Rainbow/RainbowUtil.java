@@ -34,7 +34,7 @@ public class RainbowUtil {
 		  }
 	  public static boolean IsCharLetterOrDigit(char ch)
 	  {
-	    if (((ch >= 'a') && (ch <= 'z')) || ((ch >= 'A') && (ch <= 'Z'))) return true;
+	    if (((ch >= 'a') && (ch <= 'z')) || ((ch >= 'A') && (ch <= 'Z') || (ch == '-') || (ch == '_'))) return true;
 
 	    return (ch >= '0') && (ch <= '9');
 	  }

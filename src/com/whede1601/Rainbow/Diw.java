@@ -44,7 +44,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 		Player p = (Player)sender;
 		if (args.length ==0 )
 		{
-			p.sendMessage("error: Not enough");
+			p.sendMessage("error: Not enough args");
+			ShowUsage(sender);
 			return false;
 		}
 	    if (args[0].equalsIgnoreCase("deathtoggle") && (p != null) && p.hasPermission("rainbow.keepinv"))
@@ -160,9 +161,26 @@ import org.bukkit.inventory.meta.ItemMeta;
 	    	}
 	    	return true;
 	    }
+	    if ((args[0].equalsIgnoreCase("version")) && (p != null))
+	    {
+	    	p.sendMessage(ChatColor.AQUA + "Version number: " + ChatColor.YELLOW + Rainbow.version);
+	    	return true;
+	    }
+	    ShowUsage(sender);
 	    sender.sendMessage(ChatColor.RED + "Not enough permissions.");
 		return false;
 	}
+	private void ShowUsage(CommandSender sender) {
+	    sender.sendMessage("-----------------------------------------------------");
+	    sender.sendMessage(ChatColor.AQUA + "/diw deathtoggle");
+	    sender.sendMessage(ChatColor.AQUA + "/diw addlore " + ChatColor.LIGHT_PURPLE + "Your Name Text");
+	    sender.sendMessage(ChatColor.AQUA + "/diw clearlore");
+	    sender.sendMessage(ChatColor.AQUA + "/diw addname " + ChatColor.LIGHT_PURPLE + "Your Name Text");
+	    sender.sendMessage(ChatColor.AQUA + "/diw clearname");
+	    sender.sendMessage("-----------------------------------------------------");
+	}
+
+
 	public static boolean checkKeepInv(Player player) {
 	    Boolean res = (Boolean)deathallow.get(player.getName());
 	    if (res == null)

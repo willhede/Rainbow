@@ -35,6 +35,7 @@ public class Rainbow extends JavaPlugin
 	
 	public static Rainbow plugin;
 	public static Essentials ess;
+	public static String version; 
 	public void onEnable()
 	{
 		PluginManager pluginManager = Bukkit.getServer().getPluginManager();
@@ -43,6 +44,10 @@ public class Rainbow extends JavaPlugin
 		{
 			ess = (Essentials)EssPlugin;
 			System.out.println("essentials is enabled");
+		}
+		if (this.getDescription().getVersion() != null)
+		{
+			version = this.getDescription().getVersion(); 
 		}
 	    File data = getDataFolder();
 	    Bukkit.getServer().getPluginManager().registerEvents(this, this);
