@@ -1,6 +1,6 @@
 name: Rainbow
 main: com.whede1601.Rainbow.Rainbow
-version: 3.7
+version: 3.9
 author: whede1601
 commands:
   jemote:
@@ -14,3 +14,5 @@ commands:
   jot:
   NameColor:
   color:
+  ragequit:
+  calmquit:

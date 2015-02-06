@@ -18,7 +18,40 @@ public class RainbowUtil {
 	    parm = RainbowUtil.TranslateColorString(parm, true);
 	    return parm;
 	  }
+
+	  public static String RainbowString(String str) {
+		    return RainbowString(str, "");
+		  }
 	  
+	  public static String RainbowString(String str, String ctl) {
+		    if (ctl.equalsIgnoreCase("x")) return str;
+
+		    StringBuilder sb = new StringBuilder();
+		    int idx = 0;
+		    boolean useBold = ctl.indexOf('b') >= 0;
+		    boolean useItalics = ctl.indexOf('i') >= 0;
+		    boolean useUnderline = ctl.indexOf('u') >= 0;
+
+		    for (int i = 0; i < str.length(); i++)
+		    {
+		      if (idx % 6 == 0) sb.append(ChatColor.RED);
+		      else if (idx % 6 == 1) sb.append(ChatColor.GOLD);
+		      else if (idx % 6 == 2) sb.append(ChatColor.YELLOW);
+		      else if (idx % 6 == 3) sb.append(ChatColor.GREEN);
+		      else if (idx % 6 == 4) sb.append(ChatColor.AQUA);
+		      else if (idx % 6 == 5) sb.append(ChatColor.LIGHT_PURPLE);
+
+		      if (useBold) sb.append(ChatColor.BOLD);
+		      if (useItalics) sb.append(ChatColor.ITALIC);
+		      if (useUnderline) sb.append(ChatColor.UNDERLINE);
+
+		      sb.append(str.charAt(i));
+
+		      if (str.charAt(i) == ' ') continue; idx++;
+		    }
+
+		    return sb.toString();
+		  }
 	  public static String ConcatArgs(String[] args, int startIdx) {
 		    if (args == null) return "";
 		    if (args.length <= 0) return "";

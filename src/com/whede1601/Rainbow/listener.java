@@ -39,6 +39,7 @@ public class listener implements Listener {
 		}
 	}
 	
+	
 	@EventHandler
 	public void onPlayerLogout(PlayerQuitEvent e)
 	{

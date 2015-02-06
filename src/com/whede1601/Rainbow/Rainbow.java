@@ -9,6 +9,8 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import javax.swing.text.html.parser.Entity;
 
+import me.ryanhamshire.GriefPrevention.GriefPrevention;
+
 import org.apache.commons.lang.text.StrBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -35,9 +37,11 @@ public class Rainbow extends JavaPlugin
 	
 	public static Rainbow plugin;
 	public static Essentials ess;
+	public static GriefPrevention gp;
 	public static String version; 
 	public void onEnable()
 	{
+        plugin = this;
 		PluginManager pluginManager = Bukkit.getServer().getPluginManager();
 		Plugin EssPlugin = pluginManager.getPlugin("Essentials");
 		if (EssPlugin != null && EssPlugin.isEnabled())
@@ -68,6 +72,8 @@ public class Rainbow extends JavaPlugin
 		this.getCommand("Jot").setExecutor(new Jot(plugin));
 		this.getCommand("namecolor").setExecutor(new NameColor(plugin));
 		this.getCommand("color").setExecutor(new Color(plugin));
+	    this.getCommand("ragequit").setExecutor(new Ragequit(plugin));
+	    this.getCommand("calmquit").setExecutor(new Calmquit(plugin));
 		VersionCheck();
 		this.getServer().getPluginManager().registerEvents(new listener(this), (this));
 //		this.getCommand("kit").setExecutor(new KitCmd(plugin));

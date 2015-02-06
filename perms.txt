@@ -1,0 +1,6 @@
+KeepInv: rainbow.keepinv
+Name: rainbow.name
+Diw Commands: rainbow.diw
+namecolor: rainbow.namecolor
+Cron: rainbow.cron
+Jemote edit: rainbow.jemote.edit

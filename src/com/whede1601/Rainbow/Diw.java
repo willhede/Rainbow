@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
+import me.ryanhamshire.GriefPrevention.Claim;
+import me.ryanhamshire.GriefPrevention.PlayerData;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Effect;
@@ -23,7 +26,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 		@SuppressWarnings({ "unchecked", "rawtypes" })
 		public static ConcurrentHashMap<String, Boolean> deathallow = new ConcurrentHashMap();
 
-
 		@SuppressWarnings("unused")
 		private static final String is = null;
 		@SuppressWarnings("unused")
@@ -31,8 +33,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 		 
 		public Diw(Rainbow plugin) {
 			this.plugin = plugin; // Store the plugin in situations where youdd need it.
+			
 		}
-	
 		
 	@SuppressWarnings({ "unused", "unchecked" })
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -160,6 +162,10 @@ import org.bukkit.inventory.meta.ItemMeta;
 	    		player.setLevel(levels + givenlevels);
 	    	}
 	    	return true;
+	    }
+	    if ((args[0].equalsIgnoreCase("weed")) && (p != null))
+	    {
+	    	giveitems.weed(p);
 	    }
 	    if ((args[0].equalsIgnoreCase("version")) && (p != null))
 	    {
