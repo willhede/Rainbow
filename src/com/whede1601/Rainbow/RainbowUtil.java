@@ -2,9 +2,12 @@ package com.whede1601.Rainbow;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
 
 public class RainbowUtil {
 
@@ -296,4 +299,5 @@ public class RainbowUtil {
 
 		    return 0L;
 		  }
+
 }

@@ -4,7 +4,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
@@ -46,4 +48,25 @@ public class listener implements Listener {
 		String player = e.getPlayer().getName();
 		NameUtil.Logout(player);
 	}
+
+	@EventHandler
+	public void onClick(PlayerInteractEvent e)
+	{
+		Player p = e.getPlayer();
+	    if ((p.getInventory().getItemInHand().getTypeId() == 383) && 
+	    	      ((e.getAction() == Action.RIGHT_CLICK_AIR) || 
+	    	      (e.getAction() == Action.RIGHT_CLICK_BLOCK)) && 
+	    	      (p.getItemInHand().getAmount() >= 1)) {
+	    	int amt = p.getItemInHand().getAmount();
+	    	if (amt <= 1)
+	        {
+	          p.setItemInHand(null);
+	        }
+	        else
+	        {
+	          p.getItemInHand().setAmount(amt - 1);
+	        }
+	    	kindermgr.GivePrize(p);
+	    }
+	    }
 }

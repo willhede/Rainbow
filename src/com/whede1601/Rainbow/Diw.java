@@ -148,7 +148,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 	    }
 	    if ((args[0].equalsIgnoreCase("xptrain")) && (p != null) && p.hasPermission("rainbow.diw"))
 	    {
-	    	if (args[1].isEmpty())
+	    	if (args[1] == null)
 	    	{
 		        p.sendMessage(ChatColor.RED + "No levels imputed");
 		        return false;
@@ -163,10 +163,31 @@ import org.bukkit.inventory.meta.ItemMeta;
 	    	}
 	    	return true;
 	    }
-	    if ((args[0].equalsIgnoreCase("weed")) && (p != null))
+	    if ((args[0].equalsIgnoreCase("weed")) && (p != null) && p.hasPermission("rainbow.diw.weed"))
 	    {
 	    	giveitems.weed(p);
+	    	return true;
 	    }
+	    if ((args[0].equalsIgnoreCase("god")) && (p != null) && p.hasPermission("rainbow.diw.god"))
+	    {
+	    	giveitems.god(p);
+	    	return true;
+	    }
+	    if ((args[0].equalsIgnoreCase("king")) && (p != null) && p.hasPermission("rainbow.diw.king"))
+	    {
+	    	giveitems.king(p);
+	    	return true;
+	    }
+	    if ((args[0].equalsIgnoreCase("queen")) && (p != null) && p.hasPermission("rainbow.diw.queen"))
+	    {
+	    	giveitems.queen(p);
+	    	return true;
+	    }
+	    if ((args[0].equalsIgnoreCase("prince")) && (p != null) && p.hasPermission("rainbow.diw.prince"))
+	    {
+	    	giveitems.prince(p);
+	    	return true;
+	    }	
 	    if ((args[0].equalsIgnoreCase("version")) && (p != null))
 	    {
 	    	p.sendMessage(ChatColor.AQUA + "Version number: " + ChatColor.YELLOW + Rainbow.version);
@@ -182,7 +203,10 @@ import org.bukkit.inventory.meta.ItemMeta;
 	    sender.sendMessage(ChatColor.AQUA + "/diw addlore " + ChatColor.LIGHT_PURPLE + "Your Name Text");
 	    sender.sendMessage(ChatColor.AQUA + "/diw clearlore");
 	    sender.sendMessage(ChatColor.AQUA + "/diw addname " + ChatColor.LIGHT_PURPLE + "Your Name Text");
-	    sender.sendMessage(ChatColor.AQUA + "/diw clearname");
+	    sender.sendMessage(ChatColor.AQUA + "/diw god");
+	    sender.sendMessage(ChatColor.AQUA + "/diw king");
+	    sender.sendMessage(ChatColor.AQUA + "/diw queen");
+	    sender.sendMessage(ChatColor.AQUA + "/diw prince");
 	    sender.sendMessage("-----------------------------------------------------");
 	}
 
