@@ -2,6 +2,7 @@ KeepInv: rainbow.keepinv
 Name: rainbow.name
 Diw Commands: rainbow.diw
 namecolor: rainbow.namecolor
+Namecolor Staff: rainbow.namecolor.staff
 Cron: rainbow.cron
 Jemote edit: rainbow.jemote.edit
 kinder perms: rainbow.kinder
@@ -9,3 +10,4 @@ God: rainbow.diw.god
 king: rainbow.diw.king
 queen: rainbow.diw.queen
 prince: rainbow.diw.prince
+Name

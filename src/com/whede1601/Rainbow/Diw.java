@@ -1,23 +1,17 @@
 package com.whede1601.Rainbow;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-import me.ryanhamshire.GriefPrevention.Claim;
 import me.ryanhamshire.GriefPrevention.PlayerData;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Effect;
-import org.bukkit.Location;
-import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Ocelot;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -139,7 +133,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 	      }
 	      ItemMeta ism = is.getItemMeta();
 
-	      String newName = RainbowUtil.ConcatArgs(args, 1);
+	      String newName = RainbowUtil.ConcatArgs(args, 0);
 	      String colorName = RainbowUtil.TranslateColorString(newName, true);
 	      ism.setDisplayName(colorName);
 	      is.setItemMeta(ism);
@@ -193,6 +187,73 @@ import org.bukkit.inventory.meta.ItemMeta;
 	    	p.sendMessage(ChatColor.AQUA + "Version number: " + ChatColor.YELLOW + Rainbow.version);
 	    	return true;
 	    }
+	    if ((args[0].equalsIgnoreCase("7nation")) && (p != null))
+	    {
+	    	final String tune = "1f,1f, 1g#,1f,1d#,1c#,1c,1f,1f,1g#,1f,1d#,1c#,1d#,1c#,1c";
+	    }
+	    if ((args[0].equalsIgnoreCase("addtag")) && (p != null) && p.hasPermission("rainbow.diw"))
+	    {
+		      if (args.length == 1)
+		      {
+		        p.sendMessage(ChatColor.RED + "Usage: " + ChatColor.GOLD + "/diw addtag " + ChatColor.LIGHT_PURPLE + "Your Tag Text");
+		        return false;
+		      }
+		      Entity entity = RainbowUtil.getEntityAtCursorLoc(p);
+		      if (entity == null || entity == p)
+		      {
+		    	  p.sendMessage(ChatColor.RED + "No such entity nearby. Please try again");
+		    	  return false;
+		      }
+		      String name = RainbowUtil.ConcatArgs(args, 1);
+		      String colorname = RainbowUtil.TranslateColorString(name, true);
+		      entity.setCustomName(colorname);
+		      p.sendMessage(ChatColor.AQUA + "Tag Name: '" + colorname + ChatColor.AQUA + "' "  + "Given to Entity " + ChatColor.YELLOW + entity.getType().getName());
+		      return true;
+	    }
+	    if ((args[0].equalsIgnoreCase("cleartag")) && (p != null) && p.hasPermission("rainbow.diw"))
+	    {
+		      if (args.length >= 2)
+		      {
+		        p.sendMessage(ChatColor.RED + "Usage: " + ChatColor.GOLD + "/diw cleartag");
+		        return false;
+		      }
+		      Entity entity = RainbowUtil.getEntityAtCursorLoc(p);
+		      if (entity == null || entity == p)
+		      {
+		    	  p.sendMessage(ChatColor.RED + "No such entity nearby. Please try again");
+		    	  return false;
+		      }
+		      entity.setCustomName("");
+		      p.sendMessage(ChatColor.AQUA + "Tag cleared from Entity: " + ChatColor.YELLOW + entity.getType().getName());
+		      return true;
+	    }		
+	    if ((args[0].equalsIgnoreCase("name")) && (p != null) && p.hasPermission("rainbow.diw.name"))
+	    {
+	    	if ((args[1].equalsIgnoreCase("delete") && args.length == 3))
+	    	{
+	    		String tgtName = args[2];
+	    		NameUtil.GetPlayerExactName(tgtName);
+	    		if ((NameUtil.GetPlayerExactName(tgtName) != null))
+	    		{
+	    			NameUtil.DataNew.pdata.remove(tgtName);
+	    			p.sendMessage("Removed user " + tgtName);
+	    			return true;
+	    		}
+	    		p.sendMessage(ChatColor.RED + "Player does not exist");
+	    		return false;
+	    	}
+	    	if ((args[1].equalsIgnoreCase("list") && args.length == 2))
+	    	{
+	    		String list = RainbowUtil.GetCommaList(NameUtil.DataNew.pdata.keySet());
+	    		p.sendMessage(list);
+	    		return true;
+	    	}
+		    sender.sendMessage("-----------------------------------------------------");
+		    sender.sendMessage(ChatColor.AQUA + "/diw name list");
+		    sender.sendMessage(ChatColor.AQUA + "/diw name delete "+ ChatColor.WHITE + "[Player]");
+		    sender.sendMessage("-----------------------------------------------------");
+		    return false;
+	    }
 	    ShowUsage(sender);
 	    sender.sendMessage(ChatColor.RED + "Not enough permissions.");
 		return false;
@@ -203,6 +264,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 	    sender.sendMessage(ChatColor.AQUA + "/diw addlore " + ChatColor.LIGHT_PURPLE + "Your Name Text");
 	    sender.sendMessage(ChatColor.AQUA + "/diw clearlore");
 	    sender.sendMessage(ChatColor.AQUA + "/diw addname " + ChatColor.LIGHT_PURPLE + "Your Name Text");
+        sender.sendMessage(ChatColor.AQUA + "/diw addtag " + ChatColor.LIGHT_PURPLE + "Your Tag Text");
+        sender.sendMessage(ChatColor.AQUA + "/diw cleartag");
 	    sender.sendMessage(ChatColor.AQUA + "/diw god");
 	    sender.sendMessage(ChatColor.AQUA + "/diw king");
 	    sender.sendMessage(ChatColor.AQUA + "/diw queen");

@@ -2,9 +2,20 @@ package com.whede1601.Rainbow;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Chunk;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.block.Block;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
@@ -120,7 +131,6 @@ public class RainbowUtil {
 		    while (res.indexOf("{newline}") >= 0) res = StringReplace(res, "{newline}", "\n");
 
 		    while (res.indexOf("{fingers}") >= 0) res = StringReplace(res, "{fingers}", "✌");
-
 		    while (res.indexOf("{coffee}") >= 0) res = StringReplace(res, "{coffee}", "☕");
 		    while (res.indexOf("{shamrock}") >= 0) res = StringReplace(res, "{shamrock}", "☘");
 		    while (res.indexOf("{doctor}") >= 0) res = StringReplace(res, "{doctor}", "☤");
@@ -130,6 +140,7 @@ public class RainbowUtil {
 		    while (res.indexOf("{earth}") >= 0) res = StringReplace(res, "{earth}", "☷");
 		    while (res.indexOf("{handicap}") >= 0) res = StringReplace(res, "{handicap}", "♿");
 		    while (res.indexOf("{ussr}") >= 0) res = StringReplace(res, "{ussr}", "☭");
+		    while (res.indexOf("{HamerPick}") >= 0) res = StringReplace(res, "{HamerPick}", "⚒");
 		    while (res.indexOf("{storm}") >= 0) res = StringReplace(res, "{storm}", "☈");
 		    while (res.indexOf("{sun}") >= 0) res = StringReplace(res, "{sun}", "☉");
 		    while (res.indexOf("{sad}") >= 0) res = StringReplace(res, "{sad}", "☹");
@@ -299,5 +310,134 @@ public class RainbowUtil {
 
 		    return 0L;
 		  }
+		  public void noteBlock()
+		  {
+				final Map<String, Float> noteMap = new HashMap<String, Float>();
+				noteMap.put("1F#", 0.5f);
+				noteMap.put("1G", 0.53f);
+				noteMap.put("1G#", 0.56f);
+				noteMap.put("1A", 0.6f);
+				noteMap.put("1A#", 0.63f);
+				noteMap.put("1B", 0.67f);
+				noteMap.put("1C", 0.7f);
+				noteMap.put("1C#", 0.76f);
+				noteMap.put("1D", 0.8f);
+				noteMap.put("1D#", 0.84f);
+				noteMap.put("1E", 0.9f);
+				noteMap.put("1F", 0.94f);
+				noteMap.put("2F#", 1.0f);
+				noteMap.put("2G", 1.06f);
+				noteMap.put("2G#", 1.12f);
+				noteMap.put("2A", 1.18f);
+				noteMap.put("2A#", 1.26f);
+				noteMap.put("2B", 1.34f);
+				noteMap.put("2C", 1.42f);
+				noteMap.put("2C#", 1.5f);
+				noteMap.put("2D", 1.6f);
+				noteMap.put("2D#", 1.68f);
+				noteMap.put("2E", 1.78f);
+				noteMap.put("2F", 1.88f);
+		  }
+			public static final Set<Integer> HOLLOW_MATERIALS = new HashSet<Integer>();
+			private static final HashSet<Byte> TRANSPARENT_MATERIALS = new HashSet<Byte>();
 
+			static
+			{
+				HOLLOW_MATERIALS.add(Material.AIR.getId());
+				HOLLOW_MATERIALS.add(Material.SAPLING.getId());
+				HOLLOW_MATERIALS.add(Material.POWERED_RAIL.getId());
+				HOLLOW_MATERIALS.add(Material.DETECTOR_RAIL.getId());
+				HOLLOW_MATERIALS.add(Material.LONG_GRASS.getId());
+				HOLLOW_MATERIALS.add(Material.DEAD_BUSH.getId());
+				HOLLOW_MATERIALS.add(Material.YELLOW_FLOWER.getId());
+				HOLLOW_MATERIALS.add(Material.RED_ROSE.getId());
+				HOLLOW_MATERIALS.add(Material.BROWN_MUSHROOM.getId());
+				HOLLOW_MATERIALS.add(Material.RED_MUSHROOM.getId());
+				HOLLOW_MATERIALS.add(Material.TORCH.getId());
+				HOLLOW_MATERIALS.add(Material.REDSTONE_WIRE.getId());
+				HOLLOW_MATERIALS.add(Material.SEEDS.getId());
+				HOLLOW_MATERIALS.add(Material.SIGN_POST.getId());
+				HOLLOW_MATERIALS.add(Material.WOODEN_DOOR.getId());
+				HOLLOW_MATERIALS.add(Material.LADDER.getId());
+				HOLLOW_MATERIALS.add(Material.RAILS.getId());
+				HOLLOW_MATERIALS.add(Material.WALL_SIGN.getId());
+				HOLLOW_MATERIALS.add(Material.LEVER.getId());
+				HOLLOW_MATERIALS.add(Material.STONE_PLATE.getId());
+				HOLLOW_MATERIALS.add(Material.IRON_DOOR_BLOCK.getId());
+				HOLLOW_MATERIALS.add(Material.WOOD_PLATE.getId());
+				HOLLOW_MATERIALS.add(Material.REDSTONE_TORCH_OFF.getId());
+				HOLLOW_MATERIALS.add(Material.REDSTONE_TORCH_ON.getId());
+				HOLLOW_MATERIALS.add(Material.STONE_BUTTON.getId());
+				HOLLOW_MATERIALS.add(Material.SNOW.getId());
+				HOLLOW_MATERIALS.add(Material.SUGAR_CANE_BLOCK.getId());
+				HOLLOW_MATERIALS.add(Material.DIODE_BLOCK_OFF.getId());
+				HOLLOW_MATERIALS.add(Material.DIODE_BLOCK_ON.getId());
+				HOLLOW_MATERIALS.add(Material.PUMPKIN_STEM.getId());
+				HOLLOW_MATERIALS.add(Material.MELON_STEM.getId());
+				HOLLOW_MATERIALS.add(Material.VINE.getId());
+				HOLLOW_MATERIALS.add(Material.FENCE_GATE.getId());
+				HOLLOW_MATERIALS.add(Material.WATER_LILY.getId());
+				HOLLOW_MATERIALS.add(Material.NETHER_WARTS.getId());
+				HOLLOW_MATERIALS.add(Material.CARPET.getId());
+
+				for (Integer integer : HOLLOW_MATERIALS)
+				{
+					TRANSPARENT_MATERIALS.add(integer.byteValue());
+				}
+				TRANSPARENT_MATERIALS.add((byte)Material.WATER.getId());
+				TRANSPARENT_MATERIALS.add((byte)Material.STATIONARY_WATER.getId());
+			}
+			public static Location getTarget(final LivingEntity entity)
+			{
+				final Block block = entity.getTargetBlock(TRANSPARENT_MATERIALS, 300);
+				if (block == null)
+				{
+					entity.sendMessage(ChatColor.RED + "Not pointing at a block");
+				}
+				return block.getLocation();
+			}
+			public static Entity getEntityAtCursorLoc(Player player)
+			{
+			      Location loc = RainbowUtil.getTarget(player);
+			      loc.setX(Math.floor(loc.getX()));
+			      loc.setY((Math.floor(loc.getY()))+1);
+			      loc.setZ(Math.floor(loc.getZ()));
+			      String world = player.getWorld().getName();
+			      Chunk chunk = Bukkit.getServer().getWorld(world).getChunkAt(loc);
+			      for (Entity entity : chunk.getEntities())
+			      {
+			    	  Location entLoc = entity.getLocation();
+			    	  entLoc.setX(Math.floor(entLoc.getX()));
+			    	  entLoc.setY(Math.floor(entLoc.getY()));
+			    	  entLoc.setZ(Math.floor(entLoc.getZ()));
+			    	  if ((loc.getBlockX() == entLoc.getBlockX()) && (loc.getBlockZ() == entLoc.getBlockZ()))
+			    	  {
+				    	  return entity;
+			    	  }
+			      }
+				return null;
+			}	  
+
+			public static String GetCommaList(Set<String> keys) {
+			    StringBuffer buf = new StringBuffer();
+			    for (String str : keys)
+			    {
+			      if (buf.length() > 0) buf.append(", ");
+			      buf.append(str);
+			    }
+				return buf.toString();
+			}	
+			public static Player isPlayerOnline(String player)
+			{
+				Player[] online = Bukkit.getOnlinePlayers();
+				for (Player p : online)
+				{
+					String plr = p.getName();
+					if (plr.equalsIgnoreCase(player))
+					{
+						return p;
+					}
+				}
+				return null;				
+			}
 }

@@ -47,7 +47,7 @@ public class Rainbow extends JavaPlugin
 		if (EssPlugin != null && EssPlugin.isEnabled())
 		{
 			ess = (Essentials)EssPlugin;
-			System.out.println("essentials is enabled");
+			System.out.println("Essentials is enabled");
 		}
 		if (this.getDescription().getVersion() != null)
 		{

@@ -48,7 +48,25 @@ public class NameColor implements CommandExecutor {
 	    	return false;
 	    }
 	    String pName = player.getName();
+		User user = essentials.getUser(pName);
 	    String newName = args[0];
+	    // Easter egg!
+	    if (newName.equalsIgnoreCase("rainbow"))
+	    {
+	    	String rainbowName = RainbowUtil.RainbowString(pName);
+			player.sendMessage(rainbowName);
+			user.setNickname(rainbowName);
+		    player.sendMessage(ChatColor.GREEN + "Your colored name is now: " + ChatColor.YELLOW + rainbowName);
+	    	return true;
+	    }
+		if (player.hasPermission("rainbow.namecolor.staff"))
+		{
+		    newName = RainbowUtil.FullTranslate(newName);
+			user.setNickname(newName);
+			player.sendMessage(newName);
+		    player.sendMessage(ChatColor.GREEN + "Your colored name is now: " + ChatColor.YELLOW + newName);
+		    return true;
+		}
 		newName = RainbowUtil.TranslateColorString(newName, false, false);
 	    if (!pName.equalsIgnoreCase(ChatColor.stripColor(newName)))
 	    {
@@ -57,8 +75,6 @@ public class NameColor implements CommandExecutor {
 	      return false;
 	    }
 		player.sendMessage(newName);
-		System.out.println(newName);
-		User user = essentials.getUser(pName);
 		user.setNickname(newName);
 	    player.sendMessage(ChatColor.GREEN + "Your colored name is now: " + ChatColor.YELLOW + newName);
 		return true;

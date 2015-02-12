@@ -152,21 +152,11 @@ public class EmoteUtil {
 		return true;		
 	}
 	public static String GetCommaList(CommandSender sender) {
-		String strEmotes = GetCommaList();
+		String strEmotes = RainbowUtil.GetCommaList(emotes.emotes.keySet());
 	    sender.sendMessage(ChatColor.GREEN + "All Emotes: " + ChatColor.YELLOW + strEmotes);
 		return null;
 	}
-
-	private static String GetCommaList() {
-		Set<String> keys = emotes.emotes.keySet();
-	    StringBuffer buf = new StringBuffer();
-	    for (String str : keys)
-	    {
-	      if (buf.length() > 0) buf.append(", ");
-	      buf.append(str);
-	    }
-		return buf.toString();
-	}	  
+	
 	  public static void ShowUsage(CommandSender sender)
 	  {
 	    sender.sendMessage(ChatColor.AQUA + "----- Emotion Options -----");
