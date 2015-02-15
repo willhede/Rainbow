@@ -1,5 +1,6 @@
 package com.whede1601.Rainbow;
 
+import java.awt.List;
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -19,7 +20,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 	public class Diw implements CommandExecutor {
 		@SuppressWarnings({ "unchecked", "rawtypes" })
 		public static ConcurrentHashMap<String, Boolean> deathallow = new ConcurrentHashMap();
-
 		@SuppressWarnings("unused")
 		private static final String is = null;
 		@SuppressWarnings("unused")
@@ -133,7 +133,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 	      }
 	      ItemMeta ism = is.getItemMeta();
 
-	      String newName = RainbowUtil.ConcatArgs(args, 0);
+	      String newName = RainbowUtil.ConcatArgs(args, 1);
 	      String colorName = RainbowUtil.TranslateColorString(newName, true);
 	      ism.setDisplayName(colorName);
 	      is.setItemMeta(ism);
@@ -263,6 +263,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 	    sender.sendMessage(ChatColor.AQUA + "/diw deathtoggle");
 	    sender.sendMessage(ChatColor.AQUA + "/diw addlore " + ChatColor.LIGHT_PURPLE + "Your Name Text");
 	    sender.sendMessage(ChatColor.AQUA + "/diw clearlore");
+	    sender.sendMessage(ChatColor.AQUA + "/diw clearname");
 	    sender.sendMessage(ChatColor.AQUA + "/diw addname " + ChatColor.LIGHT_PURPLE + "Your Name Text");
         sender.sendMessage(ChatColor.AQUA + "/diw addtag " + ChatColor.LIGHT_PURPLE + "Your Tag Text");
         sender.sendMessage(ChatColor.AQUA + "/diw cleartag");

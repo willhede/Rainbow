@@ -5,6 +5,7 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javax.swing.text.html.parser.Entity;
@@ -16,6 +17,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Chunk;
 import org.bukkit.World;
+import org.bukkit.command.CommandExecutor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -63,10 +65,11 @@ public class Rainbow extends JavaPlugin
 		Runner();
 		KitMgr.LoadKits();
 		NameUtil.ServerStartTime = System.currentTimeMillis();
-	    this.getCommand("jemote").setExecutor(new jemote(plugin));
+	    this.getCommand("jemote").setTabCompleter(new CmdTabCompleter(plugin));
 		this.getCommand("name").setExecutor(new name(plugin));
 		this.getCommand("e").setExecutor(new e(plugin));
 		this.getCommand("diw").setExecutor(new Diw(plugin));
+		this.getCommand("diw").setTabCompleter(new CmdTabCompleter(plugin));
 		this.getCommand("ride").setExecutor(new Ride(plugin));
 		this.getCommand("throw").setExecutor(new Throw(plugin));
 		this.getCommand("cron").setExecutor(new cron(plugin));

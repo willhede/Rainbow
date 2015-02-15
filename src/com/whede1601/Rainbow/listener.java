@@ -6,13 +6,14 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 public class listener implements Listener {
 
-	private Object plugin;
+	private Rainbow plugin;
 
 	public listener(Rainbow rainbow) {
 		this.plugin = plugin; // Store the plugin in situations where you need it.
@@ -49,6 +50,18 @@ public class listener implements Listener {
 		NameUtil.Logout(player);
 	}
 
+	@EventHandler
+	public void onEntityClick(PlayerInteractEntityEvent e)
+	{
+		if (e.getRightClicked() instanceof Player)                                                                
+		{
+			System.out.println("test");
+			Player player = e.getPlayer();
+			System.out.println(player);
+			Ride.run(player, e);
+		}
+	}
+	
 	@EventHandler
 	public void onClick(PlayerInteractEvent e)
 	{

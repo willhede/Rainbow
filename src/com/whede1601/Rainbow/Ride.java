@@ -3,13 +3,15 @@ package com.whede1601.Rainbow;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-
+import org.bukkit.event.Event;
+import org.bukkit.event.player.PlayerInteractEntityEvent;
 public class Ride implements CommandExecutor {
 	@SuppressWarnings("unused")
 	private final Rainbow plugin;
@@ -19,13 +21,33 @@ public class Ride implements CommandExecutor {
 		this.plugin = plugin; // Store the plugin in situations where you need it.
 	}
 
-	public boolean CanRide(String pName)
+	public static boolean CanRide(String pName)
 	  {
 	    Boolean res = (Boolean)dictAllow.get(pName);
 	    if (res == null) return false;
 	    return res.booleanValue();
 	  }
- 
+	private static Player getVehicle(Player player) {
+			if (player.getVehicle() instanceof Player)
+			{
+				return (Player) player.getVehicle();
+		    }
+		    return null;
+		  }
+
+	private static Player getRootVehicle(Player vehicle) {
+		    while (getVehicle(vehicle) != null) {
+		      vehicle = getVehicle(vehicle);
+		    }
+		    return vehicle;
+		  }
+
+	  private static Player getLastPassenger(Player vehicle) {
+		    while ((vehicle.getPassenger() != null) && ((vehicle.getPassenger() instanceof Player))) {
+		      vehicle = (Player)vehicle.getPassenger();
+		    }
+		    return vehicle;
+		  }
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (!(sender.hasPermission("rainbow.ride")))
@@ -41,13 +63,11 @@ public class Ride implements CommandExecutor {
 	    Player p = (Player)sender;
 	    if (args.length == 0)
 	    {
-		    p.sendMessage(ChatColor.RED + "Usage: /ride " + ChatColor.YELLOW + "Name" + ChatColor.WHITE + " - Ride Something!");
 		    p.sendMessage(ChatColor.RED + "Usage: /ride " + ChatColor.AQUA + "toggle" + ChatColor.WHITE + " - Enable riders");
 		      return false;
 	    }
 	    if (args.length >= 2)
 	    {
-	      p.sendMessage(ChatColor.RED + "Usage: /ride " + ChatColor.YELLOW + "Name" + ChatColor.WHITE + " - Ride Something!");
 	      p.sendMessage(ChatColor.RED + "Usage: /ride " + ChatColor.AQUA + "toggle" + ChatColor.WHITE + " - Enable riders");
 	      return false;
 	    }
@@ -72,54 +92,30 @@ public class Ride implements CommandExecutor {
 	      }
 	      return false;
 	    }
-	    Entity tgtEnt = GetClosestEntity(p, 5.0D, tgtName);
-	    if (tgtEnt == null)
-	    {
-	      p.sendMessage(ChatColor.RED + "No nearby target found named: " + ChatColor.YELLOW + tgtName);
-	      return false;
-	    }
-	    tgtName = tgtEnt.getName();
-
-	    if ((tgtEnt instanceof Player))
-	    {
-	      if (CanRide(tgtName) == false)
-	      {
-	        p.sendMessage(ChatColor.RED + "That target has not enabled riding.");
-	        return false;
-	      }
-	      tgtEnt.setPassenger(p);
-	    }
 	    return false;
 	}
 		return false;
-}
-
-	private Entity GetClosestEntity(Player p, double checkDist, String tgtName) {
-		    double bestDist = 100000.0D;
-		    String tgtNameLower = tgtName.toLowerCase();
-		    Entity bestEnt = null;
-			List<Entity> allEnt = p.getNearbyEntities(bestDist, bestDist, bestDist);
-			for (Entity ent : allEnt)
-			{
-				double dx = ent.getLocation().getBlockX() - p.getLocation().getBlockX();
-				double dy = ent.getLocation().getBlockY() - p.getLocation().getBlockY();
-				double dz = ent.getLocation().getBlockZ() - p.getLocation().getBlockZ();
-		        double dist2 = Math.sqrt(dx * dx + dy * dy + dz * dz);
-		        if (dist2 > checkDist)
-		              continue;
-		        boolean matches = false;
-		        String entClassName = ent.getClass().getSimpleName();
-		        
-		        if (tgtName.equals("*")) matches = true;
-		        if ((!matches) && (entClassName.toLowerCase().contains(tgtNameLower))) matches = true;
-		        if ((!matches) && (ChatColor.stripColor(ent.getName()).toLowerCase().contains(tgtNameLower))) matches = true;
-		        if ((!matches) || 
-		          (dist2 >= bestDist))
-		          continue;
-		        bestDist = dist2;
-		        bestEnt = ent;
-
-			}
-			return bestEnt;
+	}
+	public static void run(Player player, PlayerInteractEntityEvent e)
+	{
+		System.out.println(player);
+		String p = player.getName();
+		if (!CanRide(e.getRightClicked().getName()))
+		{
+			player.sendMessage(ChatColor.RED + "You can not ride that player.");
+			return;
 		}
+			Player vehicle = getVehicle(player);
+			System.out.println(vehicle);
+			if (vehicle != null)
+			{
+				vehicle = (Player)e.getRightClicked();
+				System.out.println(vehicle);
+				getLastPassenger(player).setPassenger(vehicle);
+			}
+			else
+			{
+				player.setPassenger(e.getRightClicked());
+			}
+	}
 }
