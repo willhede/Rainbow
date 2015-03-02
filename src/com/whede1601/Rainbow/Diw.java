@@ -28,8 +28,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 		public Diw(Rainbow plugin) {
 			this.plugin = plugin; // Store the plugin in situations where youdd need it.
 			
-		}
-		
+		}	
 	@SuppressWarnings({ "unused", "unchecked" })
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 	    if (!(sender instanceof Player))
@@ -60,12 +59,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 	      }
 	      return false;
 	    }
-		if (args[0].equalsIgnoreCase("ThePurge") && (p != null) && p.hasPermission("rainbow.diw"))
-		{
-			System.out.println("the purge enabled");
-			p.sendMessage("The purge enabled");
-			ThePurge.Scoreboard();
-		}
 	    if ((args[0].equalsIgnoreCase("addlore")) && (p != null) && p.hasPermission("rainbow.diw"))
 	    {
 		      ItemStack is = p.getItemInHand();
@@ -112,7 +105,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 	        return false;
 	      }
 	      ItemMeta ism = is.getItemMeta();
-	      if ((is == null))
 	      ism.setLore(null);
 	      is.setItemMeta(ism);
 	      p.sendMessage(ChatColor.GREEN + "Lore Cleared!");
@@ -132,7 +124,14 @@ import org.bukkit.inventory.meta.ItemMeta;
 	        return false;
 	      }
 	      ItemMeta ism = is.getItemMeta();
-
+	      if (args[1].equalsIgnoreCase("rainbow"))
+	      {
+	    	  String newName = RainbowUtil.ConcatArgs(args, 2);
+	    	  ism.setDisplayName(newName);
+	    	  is.setItemMeta(ism);
+		      p.sendMessage(ChatColor.GREEN + "Name Added: " + ChatColor.LIGHT_PURPLE + newName);
+		      return true;
+	      }
 	      String newName = RainbowUtil.ConcatArgs(args, 1);
 	      String colorName = RainbowUtil.TranslateColorString(newName, true);
 	      ism.setDisplayName(colorName);
@@ -186,6 +185,13 @@ import org.bukkit.inventory.meta.ItemMeta;
 	    {
 	    	p.sendMessage(ChatColor.AQUA + "Version number: " + ChatColor.YELLOW + Rainbow.version);
 	    	return true;
+	    }
+	    if ((args[0].equalsIgnoreCase("rainbowtext")) && (p != null))
+	    {
+		      String text = RainbowUtil.ConcatArgs(args, 1);
+		      String msg = RainbowUtil.RainbowString(text);
+		      Bukkit.broadcastMessage("<" + p.getName() + ">" +" " + msg);
+		      return true;
 	    }
 	    if ((args[0].equalsIgnoreCase("7nation")) && (p != null))
 	    {

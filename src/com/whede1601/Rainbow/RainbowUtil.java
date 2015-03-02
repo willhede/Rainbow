@@ -1,5 +1,9 @@
 package com.whede1601.Rainbow;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -440,4 +444,31 @@ public class RainbowUtil {
 				}
 				return null;				
 			}
+
+			  public static boolean compatibleImage(String s)
+			  {
+			    try
+			    {
+			      String contentType = getContentType(new URL(s));
+			      if (contentType.startsWith("image"))
+			        return true;
+			    }
+			    catch (MalformedURLException localMalformedURLException) {
+			    }
+			    catch (Exception e) {
+			      e.printStackTrace();
+			    }
+			    return false;
+			  }
+
+			  private static final String getContentType(URL theURL)
+			    throws IOException
+			  {
+			    HttpURLConnection con = (HttpURLConnection)theURL.openConnection();
+			    con.setRequestMethod("HEAD");
+			    con.connect();
+			    String toReturn = con.getContentType();
+			    con.disconnect();
+			    return toReturn;
+			  }
 }

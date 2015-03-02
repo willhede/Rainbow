@@ -33,7 +33,6 @@ public class kindermgr {
 	    }
 	    catch (Throwable exc)
 	    {
-	      System.out.println("Starting New Emote Database...");
 	      rewards = new ConcurrentHashMap();
 	      exc.printStackTrace();
 	    }
@@ -51,7 +50,7 @@ public class kindermgr {
 	    catch (Throwable exc)
 	    {
 	      System.out.println("**********************************************");
-	      System.out.println("SaveEmotes: " + exc.toString());
+	      System.out.println("SaveRewards: " + exc.toString());
 	      System.out.println("**********************************************");
 	    }
 	  }
@@ -116,7 +115,7 @@ public class kindermgr {
 	      String actCmd = String.format(rew.cmd, new Object[] { p.getName() });
 	      System.out.println("CMD: " + actCmd);
 	      Bukkit.dispatchCommand(Bukkit.getConsoleSender(), actCmd);
-
+	      p.sendMessage(RainbowUtil.RainbowString("Kinder Egg") + ChatColor.AQUA + "Your egg had something in it!");
 	      nPrizes++;
 	    }
 

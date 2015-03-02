@@ -48,6 +48,7 @@ public class giveitems {
 			is.addUnsafeEnchantment(Enchantment.PROTECTION_EXPLOSIONS, 8);
 			is.addUnsafeEnchantment(Enchantment.PROTECTION_PROJECTILE, 8);
 			is.addUnsafeEnchantment(Enchantment.THORNS, 8);
+			is.addUnsafeEnchantment(Enchantment.DURABILITY, 127);
 			if (is.getData().getItemType() == Material.DIAMOND_HELMET)
 			{
 				is.addUnsafeEnchantment(Enchantment.OXYGEN, 8);
@@ -65,12 +66,12 @@ public class giveitems {
 			ItemMeta ism = is.getItemMeta();
 			if (is.getData().getItemType() == Material.DIAMOND_SWORD)
 			{
-				ism.setDisplayName(ChatColor.GOLD + "Weed's sword");
+				ism.setDisplayName(ChatColor.GOLD + "Holy Sword Excalibur");
 				is.setItemMeta(ism);
 				is.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 8);
 				is.addUnsafeEnchantment(Enchantment.DAMAGE_ARTHROPODS, 8);
 				is.addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, 8);
-				is.addUnsafeEnchantment(Enchantment.DURABILITY, 8);
+				is.addUnsafeEnchantment(Enchantment.DURABILITY, 127);
 				is.addUnsafeEnchantment(Enchantment.LOOT_BONUS_MOBS, 8);
 				is.addUnsafeEnchantment(Enchantment.KNOCKBACK, 8);
 				is.addUnsafeEnchantment(Enchantment.FIRE_ASPECT, 8);
@@ -83,7 +84,7 @@ public class giveitems {
 				is.addUnsafeEnchantment(Enchantment.ARROW_FIRE, 8);
 				is.addUnsafeEnchantment(Enchantment.ARROW_INFINITE, 8);
 				is.addUnsafeEnchantment(Enchantment.ARROW_KNOCKBACK, 8);
-				is.addUnsafeEnchantment(Enchantment.DURABILITY, 8);
+				is.addUnsafeEnchantment(Enchantment.DURABILITY, 127);
 			}
 			p.getInventory().addItem(is);
 		}

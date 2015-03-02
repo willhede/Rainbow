@@ -102,7 +102,7 @@ public class Ride implements CommandExecutor {
 		String p = player.getName();
 		if (!CanRide(e.getRightClicked().getName()))
 		{
-			player.sendMessage(ChatColor.RED + "You can not ride that player.");
+//			player.sendMessage(ChatColor.RED + "You can not ride that player.");
 			return;
 		}
 			Player vehicle = getVehicle(player);

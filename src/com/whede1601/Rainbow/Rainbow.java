@@ -64,8 +64,10 @@ public class Rainbow extends JavaPlugin
 		kindermgr.LoadRewards();
 		Runner();
 		KitMgr.LoadKits();
+//		EntityDrops.LoadDrops();
 		NameUtil.ServerStartTime = System.currentTimeMillis();
 	    this.getCommand("jemote").setTabCompleter(new CmdTabCompleter(plugin));
+	    this.getCommand("jemote").setExecutor(new jemote(plugin));
 		this.getCommand("name").setExecutor(new name(plugin));
 		this.getCommand("e").setExecutor(new e(plugin));
 		this.getCommand("diw").setExecutor(new Diw(plugin));
@@ -79,7 +81,9 @@ public class Rainbow extends JavaPlugin
 	    this.getCommand("ragequit").setExecutor(new Ragequit(plugin));
 	    this.getCommand("calmquit").setExecutor(new Calmquit(plugin));
 	    this.getCommand("kinder").setExecutor(new kinder(plugin));
-		VersionCheck();
+//	    this.getCommand("purge").setExecutor(new Purge(plugin));
+
+	    VersionCheck();
 		this.getServer().getPluginManager().registerEvents(new listener(this), (this));
 //		this.getCommand("kit").setExecutor(new KitCmd(plugin));
 	}
@@ -91,6 +95,7 @@ public class Rainbow extends JavaPlugin
 		cron.SaveCron();
 		KitMgr.SaveKits();
 		kindermgr.SaveRewards();
+//		EntityDrops.SaveDrops();
 	}
 
 	public void VersionCheck() {

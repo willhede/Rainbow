@@ -12,13 +12,18 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Set;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
+
+import me.ryanhamshire.GriefPrevention.GriefPrevention;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 
+import com.earth2me.essentials.Essentials;
 import com.google.common.io.Files;
 
 public class EmoteUtil {
@@ -77,16 +82,21 @@ public class EmoteUtil {
 	    }
 	  }
 	  
-	private static boolean CanDoEmote(CommandSender cs, String emote) {
-	      if (cs.hasPermission("rainbow.jemote." + emote))
+	private static boolean CanDoEmote(CommandSender cs, Essentials essentials) {
+	      if (!essentials.getUser(cs)._getMuted())
 	      {
-	        if (!cs.hasPermission("rainbow.jemote.*"))
+	        if (cs.hasPermission("rainbow.jemote.use"))
 	        {
-	          return false;
+	          System.out.println("True");
+	          return true;
 	        }
+	        System.out.println("false1");
+	        return false;
 	      }
-	      return true;
+          System.out.println("false2");
+	      return false;
 	}
+	
 	  public static void ShowEmoteDetails(CommandSender cs, String emote)
 	  {
 	    emote = emote.toLowerCase();
@@ -107,28 +117,33 @@ public class EmoteUtil {
 	    cs.sendMessage(ChatColor.GREEN + "---------------------------------------");
 	  }
 
-	public static void HandleEmote(Player player, String args[]) {
+	public static void HandleEmote(Player player, String args[], Essentials essentials) {
 		String emote = args[0].toLowerCase();
 		long time = System.currentTimeMillis();
 		if (!emotes.emotes.containsKey(emote)) {
-			player.sendMessage("Emote does not exist");
+			player.sendMessage(ChatColor.RED + "Emote does not exist");
 			return;
 		}
-		CanDoEmote(player, emote);
+		if (!CanDoEmote(player, essentials))
+		{
+			return; 
+		}
 	    _EmoteEntry entry = (_EmoteEntry)emotes.emotes.get(emote);
 	    if ((timeCanUseEmote(player, time)) != true) return;
 	    if (args.length > 1)
 	    {	
 	    	String tgtName = args[1];
 	    	Player pTgt = Bukkit.getPlayer(tgtName);
-	    	if (tgtName.equalsIgnoreCase(player.getName()))
+	    	if (pTgt == null)
 	    	{
-// TODO Sending message.    
+	    		String trailer = String.format((String)entry.msg.get("other"), new Object[] { args[1] });
+		        Bukkit.broadcastMessage(ChatColor.GREEN + player.getName() + " " + trailer);
+		        timeLastUsed.put(player.getName(), System.currentTimeMillis());
+		        return;
 	    	}
 	        String trailer = String.format((String)entry.msg.get("other"), new Object[] { pTgt.getName() });
 	        Bukkit.broadcastMessage(ChatColor.GREEN + player.getName() + " " + trailer);
 	        timeLastUsed.put(player.getName(), System.currentTimeMillis());
-	        System.out.println(System.currentTimeMillis());
 	        return;
 	    }
 	   Bukkit.broadcastMessage(ChatColor.GREEN + player.getName() + " " + (String)entry.msg.get("default"));

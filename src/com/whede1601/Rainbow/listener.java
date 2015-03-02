@@ -33,8 +33,16 @@ public class listener implements Listener {
 	      System.out.println(e.getEntity());
 	      return;
 	    }
-		Player player = e.getEntity();
-		boolean check = Diw.checkKeepInv(player);
+		Player deadplayer = e.getEntity();
+		boolean check = Diw.checkKeepInv(deadplayer);
+//	    if (e.getEntity().getKiller() instanceof Player)
+//	    {
+//			Player killplayer = e.getEntity().getKiller();
+//			if (PurgeUtil.purgeusers.contains(deadplayer))
+//			{
+//				PurgeUtil.updateScoreboardOnDeath(deadplayer, killplayer);
+//			}
+//	    }
 		if (check == true)
 		{
 			e.setKeepInventory(true);
@@ -69,7 +77,26 @@ public class listener implements Listener {
 	    if ((p.getInventory().getItemInHand().getTypeId() == 383) && 
 	    	      ((e.getAction() == Action.RIGHT_CLICK_AIR) || 
 	    	      (e.getAction() == Action.RIGHT_CLICK_BLOCK)) && 
-	    	      (p.getItemInHand().getAmount() >= 1)) {
+	    	      (p.getItemInHand().getAmount() >= 1)){
+	    	if (p.getItemInHand().hasItemMeta())
+	    	{
+	    		if (p.getItemInHand().getItemMeta().hasDisplayName())
+	    		{
+	    			if (p.getItemInHand().getItemMeta().getDisplayName().equalsIgnoreCase(RainbowUtil.RainbowString("Kinder Egg")))
+	    			{
+	    				
+	    			}else
+	    			{
+	    				return;
+	    			}
+	    		}else
+	    		{
+	    			return;
+	    		}
+	    	}else
+	    	{
+	    		return;
+	    	}
 	    	int amt = p.getItemInHand().getAmount();
 	    	if (amt <= 1)
 	        {

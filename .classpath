@@ -5,5 +5,6 @@
 	<classpathentry kind="lib" path="/Users/williamhede/Desktop/untitled folder/CraftBukkit/target/craftbukkit-1.8-R0.1-SNAPSHOT.jar"/>
 	<classpathentry kind="lib" path="/Users/williamhede/Desktop/untitled folder/plugins/Essentials-2.x-SNAPSHOT.jar"/>
 	<classpathentry kind="lib" path="/Users/williamhede/Desktop/untitled folder/plugins/GriefPrevention.jar"/>
+	<classpathentry kind="lib" path="/Users/williamhede/Desktop/untitled folder/plugins/EssentialsGroupManager.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

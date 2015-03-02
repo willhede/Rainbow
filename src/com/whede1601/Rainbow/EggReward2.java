@@ -1,8 +1,11 @@
 package com.whede1601.Rainbow;
 
 import java.io.Serializable;
+import java.util.Map;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
 
 class EggReward2 implements Serializable
 {

@@ -38,7 +38,7 @@ public class CmdTabCompleter implements TabCompleter{
 			}
 			return staticdiw;
 		}
-		if (cmd.getName().equalsIgnoreCase("jemote") && args.length >= 0)
+		if (cmd.getName().equalsIgnoreCase("jemote"))
 		{
 			ArrayList<String> staticjemote = new ArrayList<>();
 			if (staticjemote.isEmpty())
